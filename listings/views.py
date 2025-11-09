@@ -8,6 +8,8 @@ from rest_framework import status
 from django.conf import settings
 from .models import Listing, Booking, Payment
 from .serializers import ListingSerializer, BookingSerializer, PaymentSerializer
+from .tasks import send_booking_confirmation_email
+
 
 CHAPA_INIT_URL = "https://api.chapa.co/v1/transaction/initialize"
 CHAPA_VERIFY_URL = "https://api.chapa.co/v1/transaction/verify/{}"
@@ -19,6 +21,10 @@ class ListingViewSet(viewsets.ModelViewSet):
 class BookingViewSet(viewsets.ModelViewSet):
     queryset = Booking.objects.all()
     serializer_class = BookingSerializer
+
+    def perform_create(self, serializer):
+        booking = serializer.save()
+        send_booking_confirmation_email.delay(booking.user.email, booking.id)
 
 def get_headers():
     secret = os.environ.get('CHAPA_TEST_SECRET_KEY') or getattr(settings, 'CHAPA_TEST_SECRET_KEY', None)

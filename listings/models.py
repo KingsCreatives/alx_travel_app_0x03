@@ -71,7 +71,7 @@ class Booking(models.Model):
                  max_length=10,
                  choices=[('pending', 'Pending'), ('confirmed', 'Confirmed'), ('canceled', 'canceled')],
                  default='pending')
-           created_at = models.DateTimeField
+           created_at = models.DateTimeField(auto_now_add=True)
 
            def __str__(self):
                  return f"Booking by {self.user.email} for {self.listing.name}"

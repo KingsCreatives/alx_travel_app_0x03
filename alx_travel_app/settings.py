@@ -108,4 +108,13 @@ REST_FRAMEWORK = {
     ),
 }
 
+# Celery Configuration
+CELERY_BROKER_URL = 'amqp://localhost' 
+CELERY_RESULT_BACKEND = 'rpc://'
+
+# Email Configuration (using console for demo)
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+DEFAULT_FROM_EMAIL = 'noreply@travelapp.com'
+
+
 CORS_ALLOW_ALL_ORIGINS = True
