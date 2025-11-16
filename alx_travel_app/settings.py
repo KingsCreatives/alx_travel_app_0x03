@@ -11,7 +11,7 @@ CHAPA_SECRET_KEY = env('CHAPA_TEST_SECRET_KEY')
 
 DEBUG = True
 
-ALLOWED_HOSTS = ["https://alx-travel-app-0x03-znx3.onrender.com/"]  
+ALLOWED_HOSTS = ['alx-travel-app-0x03-znx3.onrender.com']  
 
 AUTH_USER_MODEL = 'listings.User'
 
