@@ -1,17 +1,15 @@
 from pathlib import Path
 import environ
-import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 env = environ.Env()
-env.read_env(BASE_DIR/ '.env')
-# environ.Env.read_env()  
+env.read_env(BASE_DIR/ '.env') 
 
 SECRET_KEY = env('SECRET_KEY')
 CHAPA_SECRET_KEY = env('CHAPA_TEST_SECRET_KEY')
 
-DEBUG = env('DEBUG', default=True)
+DEBUG = True
 
 ALLOWED_HOSTS = []  
 
@@ -92,7 +90,11 @@ USE_I18N = True
 USE_TZ = True
 
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
@@ -109,8 +111,11 @@ REST_FRAMEWORK = {
 }
 
 # Celery Configuration
-CELERY_BROKER_URL = 'amqp://localhost' 
-CELERY_RESULT_BACKEND = 'rpc://'
+# CELERY_BROKER_URL = 'amqp://localhost' 
+# CELERY_RESULT_BACKEND = 'rpc://'
+CELERY_BROKER_URL = 'redis://:PASSWORD@REDIS_HOST:6379/0'
+CELERY_RESULT_BACKEND = 'redis://:PASSWORD@REDIS_HOST:6379/0'
+
 
 # Email Configuration (using console for demo)
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
@@ -118,3 +123,12 @@ DEFAULT_FROM_EMAIL = 'noreply@travelapp.com'
 
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+SWAGGER_SETTINGS = {
+    'USE_SESSION_AUTH': False,
+    'SECURITY_DEFINITIONS': {
+        'basic': {
+            'type': 'basic'
+        }
+    },
+}

@@ -7,7 +7,7 @@ from rest_framework.views import APIView
 from rest_framework import status
 from django.conf import settings
 from .models import Listing, Booking, Payment
-from .serializers import ListingSerializer, BookingSerializer, PaymentSerializer
+from .serializers import ListingSerializer, BookingSerializer
 from .tasks import send_booking_confirmation_email
 
 
