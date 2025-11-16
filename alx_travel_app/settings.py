@@ -9,8 +9,7 @@ env.read_env(BASE_DIR/ '.env')
 SECRET_KEY = env('SECRET_KEY')
 CHAPA_SECRET_KEY = env('CHAPA_TEST_SECRET_KEY')
 
-DEBUG = True
-
+DEBUG = False
 ALLOWED_HOSTS = ['alx-travel-app-0x03-znx3.onrender.com']  
 
 AUTH_USER_MODEL = 'listings.User'
